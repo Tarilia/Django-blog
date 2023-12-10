@@ -1,6 +1,6 @@
 from django.urls import path
-from django_blog.article.views import IndexView, ArticleView, ArticleFormCreateView,
-                                      ArticleFormEditView
+from django_blog.article.views import (IndexView, ArticleView, ArticleFormCreateView,
+                                       ArticleFormEditView)
 
 
 urlpatterns = [
