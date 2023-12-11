@@ -14,7 +14,6 @@ class IndexView(View):
         })
 
 
-
 class ArticleView(View):
 
     def get(self, request, *args, **kwargs):
@@ -68,7 +67,7 @@ class ArticleFormEditView(View):
         article_id = kwargs.get('id')
         article = Article.objects.get(id=article_id)
         form = ArticleForm(instance=article)
-        return render(request, 'articles/update.html', {'form': form, 'article_id':article_id})
+        return render(request, 'articles/update.html', {'form': form, 'article_id': article_id})
 
     def post(self, request, *args, **kwargs):
         article_id = kwargs.get('id')
@@ -80,3 +79,14 @@ class ArticleFormEditView(View):
             return redirect('articles_index')
         messages.error(request, 'При обновлении статьи произошла ошибка')
         return render(request, 'articles/update.html', {'form': form, 'article_id': article_id})
+
+
+class ArticleFormDeleteView(View):
+
+    def post(self, request, *args, **kwargs):
+        article_id = kwargs.get('id')
+        article = Article.objects.get(id=article_id)
+        if article:
+            article.delete()
+        messages.success(request, 'Статья успешно удалена')
+        return redirect('articles_index')
